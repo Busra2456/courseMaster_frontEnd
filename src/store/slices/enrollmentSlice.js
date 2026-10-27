@@ -79,11 +79,19 @@ const enrollmentSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchMyEnrollments.fulfilled, (state, action) => {
-                state.loading = false;
-                // Code-6 bug: action.payload is the array, but trying to access .data makes it undefined
-                state.enrollments = action.payload.data;
-            })
+            
+.addCase(fetchMyEnrollments.fulfilled, (state, action) => {
+    state.loading = false;
+
+    const payload = action.payload;
+
+    state.enrollments = Array.isArray(payload)
+        ? payload
+        : Array.isArray(payload?.data)
+            ? payload.data
+            : [];
+})
+
             .addCase(fetchMyEnrollments.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
