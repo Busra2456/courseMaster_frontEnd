@@ -237,9 +237,7 @@ export default function CoursePlayer() {
                                                 const isCompleted = enrollment?.progress?.completedLessons?.includes(les._id);
                                                 
                                                 // Check if live class is upcoming
-                                                const isUpcoming = hasLiveClass && les.liveClassDate && new Date(les.liveClassDate) > new Date();
-                                                const liveClassDate = hasLiveClass && les.liveClassDate ? new Date(les.liveClassDate) : null;
-
+                                               
                                                 return (
                                                     <button
                                                         key={lesIdx}

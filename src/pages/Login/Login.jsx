@@ -25,11 +25,19 @@ export default function Login() {
             setLoading(true);
             setError(null);
 
-            const res = await loginUser(form);
-            saveToken(res.data.token);
+ const res = await loginUser(form);
 
-            navigate("/");
-            window.location.reload();
+saveToken(res.data.token);
+
+const role = res.data.user?.role;
+
+if (role === "admin") {
+    navigate("/admin", { replace: true });
+} else if (role === "student") {
+    navigate("/student", { replace: true });
+} else {
+    setError("Unable to identify user role.");
+}
         } catch (err) {
             setError(err.response?.data?.message || "Login failed. Please check your credentials.");
         } finally {
