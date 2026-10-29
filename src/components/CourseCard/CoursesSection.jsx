@@ -39,8 +39,9 @@ export default function CoursesSection() {
             setCourses(res.data.courses || []);
             setTotalPages(res.data.totalPages || 1);
         } catch (err) {
-            setError("Failed to load courses");
-        } finally {
+    console.error("Failed to load courses:", err);
+    setError("Failed to load courses");
+} finally {
             setLoading(false);
         }
     };

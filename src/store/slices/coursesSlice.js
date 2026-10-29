@@ -13,17 +13,31 @@ export const fetchCourses = createAsyncThunk(
     }
 );
 
+
 export const fetchCourseById = createAsyncThunk(
-    "courses/fetchCourseById",
-    async (id, { rejectWithValue }) => {
-        try {
-            const res = await getCourseById(id);
-            return res.data;
-        } catch (err) {
-            return rejectWithValue(err.response?.data?.message || "Course not found");
-        }
+  "courses/fetchCourseById",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await getCourseById(id);
+
+      console.log("COURSE ID:", id);
+      console.log("FULL COURSE RESPONSE:", res);
+      console.log("COURSE DATA:", res?.data);
+      console.log("SYLLABUS:", res?.data?.syllabus);
+      console.log("MODULES:", res?.data?.modules);
+      console.log("LESSONS:", res?.data?.lessons);
+
+      return res.data;
+    } catch (err) {
+      console.error("FETCH COURSE ERROR:", err);
+
+      return rejectWithValue(
+        err.response?.data?.message || "Course not found"
+      );
     }
+  }
 );
+
 
 const coursesSlice = createSlice({
     name: "courses",
